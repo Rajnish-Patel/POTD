@@ -1,0 +1,63 @@
+// Today's Problem of the day
+/* PROBLEM:-
+City With the Smallest Number of Neighbors at a Threshold Distance
+MediumAccuracy: 49.12%Submissions: 38K+Points: 4
+There are n cities labeled from 0 to n-1 with m edges connecting them. Given the array edges where edges[i] = [fromi , toi ,weighti]  represents a bidirectional and weighted edge between cities fromi and toi, and given the integer distanceThreshold. You need to find out a city with the smallest number of cities that are reachable through some path and whose distance is at most Threshold Distance. If there are multiple such cities, our answer will be the city with the greatest label.
+
+Note: The distance of a path connecting cities i and j is equal to the sum of the edge's weights along that path.
+*/
+
+//Solution in c++
+
+class Solution {
+  public:
+    int findCity(int n, int m, vector<vector<int>>& edges, int distanceThreshold) {
+        // Your code here
+        vector<vector<int>> weight(n, vector<int>(n, INT_MAX));
+        
+        for(auto x: edges)
+        {
+            weight[x[0]][x[1]] = x[2];
+            weight[x[1]][x[0]] = x[2];
+        }
+        
+        for(int i=0; i<n; i++)  
+        {
+            weight[i][i] = 0;
+        }
+        
+        for(int k=0; k<n; k++)
+        {
+            for(int i=0; i<n; i++)
+            {
+                for(int j=0; j<n; j++)
+                {
+                    if(weight[i][k]==INT_MAX || weight[k][j]==INT_MAX)  continue;
+                    
+                    weight[i][j] = min(weight[i][j], weight[i][k]+ weight[k][j]);
+                }
+            }
+        }
+        
+        int countC = n;
+        int res = -1;
+        
+        for(int i=0; i<n; i++)
+        {
+            int temp = 0;
+            
+            for(int adj=0; adj<n; adj++)
+            {
+                if(weight[i][adj]<=distanceThreshold) temp++;
+            }
+            
+            if(temp <= countC)
+            {
+                countC = temp;
+                res = i;
+            }
+        }
+        
+        return res;
+    }
+};
