@@ -1,0 +1,31 @@
+//Problem:-
+
+Euler Circuit in an Undirected Graph
+Medium  Accuracy: 54.88%   Submissions: 14K+  Points: 4
+Eulerian Path is a path in a graph that visits every edge exactly once. Eulerian Circuit is an Eulerian Path that starts and ends on the same vertex. 
+Given the number of vertices v and adjacency list adj denoting the graph. Find that there exists the Euler circuit or not. Return 1 if there exist  
+alteast one eulerian path else 0.
+
+
+//Solution:-
+//Idea :- Use the Degree-Rule Concept, if the degree of every vertices is even then it is euler graph and hence it contains eulerian circuit.
+
+class Solution {
+public:
+	bool isEularCircuitExist(int v, vector<int>adj[]){
+	    // Code here
+	    for(int i=0;i<v;i++)
+	    {
+            int rem=0;
+            
+            for(auto x:adj[i])
+            {
+                rem++;
+            }
+            
+            if(rem%2!=0) return 0;
+        }
+        return 1;
+	}
+
+};
