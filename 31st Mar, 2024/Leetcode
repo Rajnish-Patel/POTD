@@ -1,0 +1,37 @@
+//Problem:-
+
+Count Subarrays With Fixed Bounds
+Hint
+You are given an integer array nums and two integers minK and maxK.
+
+A fixed-bound subarray of nums is a subarray that satisfies the following conditions:
+
+The minimum value in the subarray is equal to minK.
+The maximum value in the subarray is equal to maxK.
+Return the number of fixed-bound subarrays.
+
+A subarray is a contiguous part of an array.
+
+
+//Solution:-
+
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, int minK, int maxK) {
+        long long res=0;
+        long long r=0;
+        int c=-1,i=-1,l=-1;
+        while(r<nums.size())
+        {
+            if (nums[r] < minK || nums[r] > maxK)   c = r; 
+            
+            if (nums[r] == minK) l = r; 
+            
+            if (nums[r] == maxK) i = r; 
+    
+            res += max(0, min(l, i) - c);
+            r++;
+        }
+        return res;
+    }
+};
