@@ -1,0 +1,44 @@
+// Problem :-
+
+Closest Neighbour in BST
+Easy    Accuracy: 36.98%        Submissions: 38K+    Points: 2
+Given the root of a binary search tree and a number n, find the greatest number in the binary search tree that is less than or equal to n. 
+
+
+//Solution:-
+
+class Solution {
+  public:
+    
+    void findD(int &res, Node* root, int &n)
+    {
+        if(root==NULL) return;
+        
+        if(root->key==n)
+        {
+            res = n;
+            return;
+        }
+        
+        if(root->key<n)
+        {
+            res = root->key;
+            findD(res, root->right, n);
+        }
+        else
+        {
+            findD(res, root->left, n);
+        }
+        return;
+    }
+    
+    int findMaxForN(Node* root, int n) 
+    {
+        int res = -1;
+        
+        findD(res, root, n);
+        
+        if(res==-1) return -1;
+        return res;
+    }
+};
