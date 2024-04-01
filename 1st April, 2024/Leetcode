@@ -1,0 +1,28 @@
+// Problem :-
+
+Length of Last Word
+
+Given a string s consisting of words and spaces, return the length of the last word in the string.
+
+A word is a maximal 
+substring
+ consisting of non-space characters only.
+
+// Solution :-
+
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+         int currLen = 0, lastLen = 0;
+         for(auto chr : s){
+            if(chr == ' '){
+              if(currLen > 0)  
+                lastLen = currLen;  
+              currLen = 0;
+            }else currLen++;
+         }
+         if(currLen > 0)  
+                lastLen = currLen;
+         return lastLen;
+    }
+};
