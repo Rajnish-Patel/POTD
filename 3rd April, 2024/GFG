@@ -1,0 +1,56 @@
+// Problem :-
+
+Kth common ancestor in BST
+
+Given a BST with n (n>=2) nodes, find the kth common ancestor of nodes x and y in the given tree. Return -1 if kth ancestor does not exist.
+
+Nodes x and y will always be present in the input of a BST, and x != y.
+
+
+// Solution :-
+
+class Solution
+{
+    public:
+    
+    /*You are required to complete below function */
+    int kthCommonAncestor(Node *root, int k,int x, int y)
+    {
+        // your code goes here
+          int total = 1;
+        Node* temp = root;
+        while(root)
+        {
+            int data = root->data;
+            if(x<data && y < data){
+                root = root->left;
+                total++;
+            }
+            else if(x>data && y>data){
+                root = root->right;
+                total++;
+            }
+            else break;
+        }
+        
+        total-=k;
+        int cnt = 1;
+        total++;
+        root = temp;
+        while(root)
+        {
+            if(total == cnt ) return root->data;
+            int data = root->data;
+            if(x<data && y < data){
+                root = root->left;
+                cnt++;
+            }
+            else if(x>data && y>data){
+                root = root->right;
+                cnt++;
+            }
+            else break;
+        }
+        return -1;
+    }
+};
