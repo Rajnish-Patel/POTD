@@ -1,0 +1,30 @@
+// Problem :-
+
+Optimal Strategy For A Game
+
+You are given an array arr of size n. The elements of the array represent n coin of values v1, v2, ....vn. You play against an opponent in an alternating way. In each turn, a player selects either the first or last coin from the row, removes it from the row permanently, and receives the value of the coin.
+You need to determine the maximum possible amount of money you can win if you go first.
+Note: Both the players are playing optimally.
+
+
+
+// Solution :-
+
+class Solution{
+    public:
+     long long  f(int left, int right , int n , int arr[] , vector<vector<int>> &dp)
+     {
+        if(left>right) return 0;
+        if(dp[left][right] != -1) return dp[left][right];
+        long long takeLeft = arr[left] + min(f(left+2,right,n,arr,dp),f(left+1,right-1,n,arr,dp));
+        long long takeRight = arr[right] + min(f(left,right-2,n,arr,dp),f(left+1,right-1,n,arr,dp));
+        return dp[left][right] =  max(takeLeft,takeRight);
+    }
+    
+    long long maximumAmount(int n, int arr[])
+    {
+        // Your code here
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        return f(0,n-1,n,arr , dp);
+    }
+};
