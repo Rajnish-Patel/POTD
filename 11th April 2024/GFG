@@ -1,0 +1,26 @@
+// Problem :-
+
+Gray to Binary equivalent
+
+Given an integer number n, which is a decimal representation of Gray Code. Find the binary equivalent of the Gray Code 
+& return the decimal representation of the binary equivalent.
+
+
+
+// Solution :-
+
+class Solution{
+    public:
+    // function to convert a given Gray equivalent n to Binary equivalent.
+    int grayToBinary(int n)
+    {
+        
+        int res = 0;
+        while(n)
+        {
+            res ^= n;
+            n>>=1;
+        }
+        return res;
+    }
+};
