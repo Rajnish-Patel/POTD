@@ -1,0 +1,22 @@
+// Problem :-
+
+Reverse Bits
+
+Given a number x, reverse its binary form and return the answer in decimal.
+
+
+
+// Solution :-
+
+class Solution {
+  public:
+    long long reversedBits(long long x) {
+        // code here
+        string str = bitset<32>(x).to_string();
+        long long res = 0;
+        
+        for(int i=0; i<32; i++) res += (str[i]-'0')*pow(2,i);
+        
+        return res;
+    }
+};
