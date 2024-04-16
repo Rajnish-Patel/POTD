@@ -1,0 +1,56 @@
+// Problem :-
+
+Add One Row to Tree
+
+Given the root of a binary tree and two integers val and depth, add a row of nodes with value val at the given depth depth.
+
+Note that the root node is at depth 1.
+
+The adding rule is:
+
+Given the integer depth, for each not null tree node cur at the depth depth - 1, create two tree nodes with value val as cur's left subtree root and right subtree root.
+cur's original left subtree should be the left subtree of the new left subtree root.
+cur's original right subtree should be the right subtree of the new right subtree root.
+If depth == 1 that means there is no depth depth - 1 at all, then create a tree node with value val as the new root of the whole original tree, and the original tree is the new root's left subtree.
+
+
+
+// Solution :-
+
+class Solution {
+public:
+    void getLevels(TreeNode* root,unordered_map<int,vector<TreeNode*>>&levels,int level)
+    {
+        if(root==NULL)
+        {
+            return ;
+        }
+        getLevels(root->left,levels,level+1);
+        levels[level].push_back(root);
+        getLevels(root->right,levels,level+1);
+
+    }
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        if(depth ==1)
+        {
+            TreeNode* head = new TreeNode(val,root,NULL);
+            root=head;
+            return head;
+        }
+        unordered_map<int,vector<TreeNode*>>levels;
+        getLevels(root,levels,1);
+
+        for(auto i : levels[depth-1])
+        {
+            TreeNode* Ltemp = i->left;
+            TreeNode* Rtemp = i->right;
+            
+            TreeNode* Linsert=new TreeNode(val,Ltemp,NULL);
+            TreeNode* Rinsert=new TreeNode(val,NULL,Rtemp);
+
+            i->left = Linsert;
+            i->right=Rinsert;
+        }
+        return root;
+    }
+};
