@@ -1,0 +1,51 @@
+// Problem :-
+
+Count Pairs in an Array
+
+Given an array arr of n integers, count all pairs (arr[i], arr[j]) in it such that i*arr[i] > j*arr[j] and 0 ≤ i < j < n.
+
+Note: 0-based Indexing is followed.
+
+
+
+// Solution :-
+
+class Solution {
+public:
+    int ans=0;
+    vector<int>b;
+    void merge(int l,int mid,int r,int arr[]){
+        int i=l,j=mid+1;
+        int n=sizeof(arr)/sizeof(arr[0]);
+        int k=i;
+        while(i<=mid and j<=r){
+            if(arr[i]>arr[j]){
+                ans+=(mid-i+1);
+                b[k++]=arr[j];
+                j++;
+            }
+            else {
+                b[k++]=arr[i++];
+            }
+        }
+        while(i<=mid)b[k++]=arr[i++];
+        while(j<=r)b[k++]=arr[j++];
+        
+        for(int z=l;z<=r;z++)arr[z]=b[z];
+    }
+    void mergeSort(int l,int r,int arr[]){
+        if(l<r){
+            int mid=(l+r)/2;
+            mergeSort(l,mid,arr);
+            mergeSort(mid+1,r,arr);
+            merge(l,mid,r,arr);
+        }
+    }
+    int countPairs(int arr[] , int n ) 
+    {
+        for(int i=0;i<n;i++)arr[i]=i*arr[i];
+        b=vector<int>(n);
+        mergeSort(0,n-1,arr);
+        return ans;
+    }
+};
