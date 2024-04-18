@@ -1,0 +1,44 @@
+// Problem :-
+
+Two Repeated Elements
+
+Fast-Track your resumes to top tech companies and get the job you deserve! Register for Job-A-Thon Hiring Challenge  
+
+banner
+You are given an integer n and an integer array arr of size n+2. All elements of the array are in the range from 1 to n. Also, all elements occur once except two numbers which occur twice. Find the two repeating numbers.
+Note: Return the numbers in their order of appearing twice. So, if X and Y are the repeating numbers, and X's second appearance comes before second appearance of Y, then the order should be (X, Y).
+
+
+
+// Solution :-
+
+class Solution {
+  public:
+    //Function to find two repeated elements.
+    vector<int> twoRepeated (int arr[], int n) {
+        // Your code here
+         int x=-1;
+        int y=-1;
+        int maxi=1e5+7;
+        
+        for(int i=0;i<(n+2);i++)
+        {
+            int ind=arr[i]%maxi;
+            int original=arr[ind-1]%maxi;
+            int marked=arr[ind-1]/maxi;
+            
+            if(marked)
+            {
+                if(x==-1)
+                x=ind;
+                else if(y==-1)
+                {
+                    y=ind;
+                    break;
+                }
+            }
+            arr[ind-1]=(1*maxi)+original;
+        }
+        return {x,y};
+    }
+};
